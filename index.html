@@ -1,67 +1,73 @@
 <!DOCTYPE html>
+
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exemple AR.js NFT</title>
-    <!-- Inclusion d'A-Frame -->
-    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <!-- Inclusion d'AR.js pour A-Frame (version NFT) -->
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
-    <style>
-      .arjs-loader {
-        height: 100%;
-        width: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: rgba(0, 0, 0, 0.8);
-        z-index: 9999;
-        color: white;
-        font-family: sans-serif;
-        font-size: 1.2rem;
-      }
-    </style>
-  </head>
-  <body style="margin: 0; overflow: hidden;">
-    <!-- Écran de chargement pendant que l'image cible est analysée -->
+  <!-- import aframe and then ar.js with image tracking / location based features -->
+  <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1c2407b26c61958baa93967b5412487cd94b290b/dist/aframe-master.min.js"></script>
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+
+  <!-- style for the loader -->
+  <style>
+    .arjs-loader {
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: rgba(44, 41, 41, 0);
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .arjs-loader div {
+      text-align: center;
+      font-size: 1.25em;
+      color: white;
+    }
+  </style>
+
+  <body style="margin : 0px; overflow: hidden;">
+    <!-- minimal loader shown until image descriptors are loaded. Loading may take a while according to the device computational power -->
     <div class="arjs-loader">
-      <div>Chargement de l'expérience AR...</div>
+      <div>Loading, please wait...</div>
     </div>
 
+    <!-- a-frame scene -->
     <a-scene
       vr-mode-ui="enabled: false;"
       renderer="logarithmicDepthBuffer: true;"
       embedded
-      arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;">
-
-      <!-- 
-        Remplacez l'attribut url par le chemin vers vos fichiers de descripteurs générés. 
-        Attention : il ne faut pas mettre l'extension (.fset, .iset), juste le nom de base du fichier.
-        Exemple : si vos fichiers sont 'mon-image.fset', 'mon-image.iset', etc., écrivez url="chemin/vers/mon-image"
-      -->
+      arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;"
+    >
+      <!-- a-nft is the anchor that defines an Image Tracking entity -->
+      <!-- on 'url' use the path to the Image Descriptors created before. -->
+      <!-- the path should end with the name without the extension e.g. if file is 'pinball.fset' the path should end with 'pinball' -->
       <a-nft
         type="nft"
-        url="supmicrotech_holo.github.io/imagesToTrack/logoENSMM"
+        url="output/futuristic-moon-background"
         smooth="true"
         smoothCount="10"
         smoothTolerance=".01"
-        smoothThreshold="5">
-        
-        <!-- Contenu superposé : ici un cube rouge 3D (vous pouvez le remplacer par du texte ou une image 2D) -->
+        smoothThreshold="5"
+      >
+        <!-- as a child of the a-nft entity, you can define the content to show. here's a GLTF model entity -->
+        <!--<a-entity
+          gltf-model="<path-to-your-model>"
+          scale="5 5 5"
+          position="50 150 0"
+        >
+        </a-entity>-->
         <a-entity
-          geometry="primitive: box"
-          material="color: red"
-          position="0 0 0"
-          scale="50 50 50">
-        </a-entity>
-
+            geometry="primitive: box"
+            material="color: red"
+            position="0 0 0"
+            scale="50 50 50">
+          </a-entity>
       </a-nft>
-
+      <!-- static camera that moves according to the device movemenents -->
       <a-entity camera></a-entity>
     </a-scene>
   </body>
+
 </html>

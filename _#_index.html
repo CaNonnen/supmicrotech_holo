@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemple AR.js NFT</title>
+    <!-- Inclusion d'A-Frame -->
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <!-- Inclusion d'AR.js pour A-Frame (version NFT) -->
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+    <style>
+      .arjs-loader {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 9999;
+        color: white;
+        font-family: sans-serif;
+        font-size: 1.2rem;
+      }
+    </style>
+  </head>
+  <body style="margin: 0; overflow: hidden;">
+    <!-- Écran de chargement pendant que l'image cible est analysée -->
+    <div class="arjs-loader">
+      <div>Chargement de l'expérience AR...</div>
+    </div>
+
+    <a-scene
+      vr-mode-ui="enabled: false;"
+      renderer="logarithmicDepthBuffer: true;"
+      embedded
+      arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;">
+
+      <!-- 
+        Remplacez l'attribut url par le chemin vers vos fichiers de descripteurs générés. 
+        Attention : il ne faut pas mettre l'extension (.fset, .iset), juste le nom de base du fichier.
+        Exemple : si vos fichiers sont 'mon-image.fset', 'mon-image.iset', etc., écrivez url="chemin/vers/mon-image"
+      -->
+      <a-nft
+        type="nft"
+        url="/imagesToTrack/logoENSMM"
+        smooth="true"
+        smoothCount="10"
+        smoothTolerance=".01"
+        smoothThreshold="5">
+        
+        <!-- Contenu superposé : ici un cube rouge 3D (vous pouvez le remplacer par du texte ou une image 2D) -->
+        <a-entity
+          geometry="primitive: box"
+          material="color: red"
+          position="0 0 0"
+          scale="50 50 50">
+        </a-entity>
+
+      </a-nft>
+
+      <a-entity camera></a-entity>
+    </a-scene>
+  </body>
+</html>
