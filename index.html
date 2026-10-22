@@ -8,17 +8,6 @@
     <title>Réalité augmentée</title>
     <link rel="stylesheet" href="style.css">
 
-    <script>
-      function showErr(t) {
-        var d = document.createElement('pre');
-        d.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:99999;margin:0;padding:8px;background:#000;color:#0f0;font-size:12px;white-space:pre-wrap';
-        d.textContent = t;
-        document.documentElement.appendChild(d);
-      }
-      window.onerror = function (m, s, l) { showErr(m + ' (' + (s || '').split('/').pop() + ':' + l + ')'); };
-      window.onunhandledrejection = function (e) { showErr('Promesse rejetée : ' + (e.reason && e.reason.message || e.reason)); };
-    </script>
-
     <!-- import aframe and then ar.js with image tracking / location based features -->
     <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1c2407b26c61958baa93967b5412487cd94b290b/dist/aframe-master.min.js"></script>
     
